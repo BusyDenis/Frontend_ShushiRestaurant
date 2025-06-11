@@ -21,6 +21,12 @@ body, html {
   color: #d4af37;
   font-family: 'Georgia', serif;
   letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.logo:hover {
+  color: #fff;
 }
 .nav-links a {
   color: #d4af37;
@@ -107,4 +113,165 @@ body, html {
   width: 260px;
   border-radius: 14px;
   box-shadow: 0 2px 16px #0008;
+}
+
+/* Menu Page Styles */
+.menu-page {
+  padding: 2em 4em;
+}
+
+.chefs-choice {
+  text-align: center;
+  margin-bottom: 3em;
+}
+
+.premium-box {
+  background: #1a1a1a;
+  padding: 2em;
+  border-radius: 8px;
+  border: 1px solid #d4af37;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.category-buttons button {
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 0.5em 1.5em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-buttons button.active,
+.category-buttons button:hover {
+  background: #d4af37;
+  color: #121212;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2em;
+}
+
+.menu-item {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 1em;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+}
+
+.menu-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Reservation Page Styles */
+.reservation-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2em 4em;
+}
+
+.reservation-form {
+  background: #1a1a1a;
+  padding: 2em;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1.5em;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: #d4af37;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.8em;
+  background: #121212;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* Dashboard Styles */
+.dashboard {
+  padding: 2em 4em;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 1em;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.dashboard-table th {
+  background: #121212;
+  color: #d4af37;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: #d4af37;
+  color: #121212;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* NotFound Page Styles */
+.not-found {
+  text-align: center;
+  padding: 4em 2em;
+}
+
+.not-found h2 {
+  color: #d4af37;
+  margin-bottom: 1em;
+}
+
+/* Active Navigation Link */
+.nav-links a.active {
+  color: #fff;
+  border-bottom: 2px solid #d4af37;
 }
