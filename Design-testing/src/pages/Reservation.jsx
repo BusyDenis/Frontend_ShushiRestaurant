@@ -11,7 +11,7 @@ const Reservation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
+    // Here you would typically send the data to your backend -> important for Lisa and Azar
     console.log('Reservation submitted:', formData);
     alert('Reservation successfully submitted!');
   };

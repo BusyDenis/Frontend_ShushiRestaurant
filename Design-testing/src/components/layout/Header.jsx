@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <header className="navbar">
-      <Link to="/" className="logo">SUHI</Link>
+      <Link to="/" className="logo">SUSHI</Link>
       <nav className="nav-links">
         <Link to="/" className={isActive('/')}>HOME</Link>
         <Link to="/menu" className={isActive('/menu')}>MENU</Link>

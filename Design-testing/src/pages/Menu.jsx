@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import img1 from '../../img_1.png';
+import img2 from '../../img_2.png';
+import img3 from '../../img_3.png';
+import img4 from '../../img_4.png';
 
 const menuItems = [
   {
@@ -8,7 +12,7 @@ const menuItems = [
     category: 'special',
     price: '49.90',
     description: 'Our exclusive selection of the finest sushi creations',
-    image: '/images/premium-box.jpg'
+    image: img1
   },
   {
     id: 2,
@@ -16,23 +20,23 @@ const menuItems = [
     category: 'nigiri',
     price: '6.90',
     description: 'Fresh salmon on rice',
-    image: '/images/salmon-nigiri.jpg'
+    image: img2
   },
   {
     id: 3,
-    name: 'California Roll',
+    name: 'Tuna Roll',
     category: 'rolls',
-    price: '8.90',
-    description: 'Crab, avocado, cucumber',
-    image: '/images/california-roll.jpg'
+    price: '14.90',
+    description: 'Fresh tuna with avocado and cucumber',
+    image: img3
   },
   {
     id: 4,
-    name: 'Vegan Roll',
+    name: 'Vegetable Roll',
     category: 'vegan',
-    price: '7.90',
-    description: 'Avocado, cucumber, carrot',
-    image: '/images/vegan-roll.jpg'
+    price: '10.90',
+    description: 'Assorted fresh vegetables wrapped in rice and seaweed',
+    image: img4
   }
 ];
 
@@ -47,11 +51,16 @@ const Menu = () => {
   return (
     <div className="menu-page">
       <section className="chefs-choice">
-        <h2>Chef's Choice</h2>
-        <div className="premium-box">
-          <h3>Sushi Premium Box</h3>
-          <p>Our exclusive selection of the finest sushi creations</p>
-          <span className="price">$49.90</span>
+        <div className="chefs-choice-content">
+          <div>
+            <h2>Chef's Choice</h2>
+            <p>Our signature dish</p>
+            <div className="premium-box">
+              <h3>Sushi Premium Box</h3>
+              <p>A selection of our finest sushi pieces</p>
+              <p className="price">$49.90</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -90,7 +99,9 @@ const Menu = () => {
               className="menu-item"
               onClick={() => navigate(`/menu/${item.id}`)}
             >
-              <img src={item.image} alt={item.name} />
+              <div className="menu-item-image">
+                <img src={item.image} alt={item.name} />
+              </div>
               <h3>{item.name}</h3>
               <p>{item.description}</p>
               <span className="price">${item.price}</span>
