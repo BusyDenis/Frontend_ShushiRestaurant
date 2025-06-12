@@ -4,7 +4,7 @@ import Header from "./components/layout/Header";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Reservation from "./pages/Reservation";
-import Dashboard from "./pages/Dashboard";
+import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/menu/:id" element={<Menu />} />
         <Route path="/reservation" element={<Reservation />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

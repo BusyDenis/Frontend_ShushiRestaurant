@@ -15,7 +15,7 @@ const Header = () => {
         <Link to="/" className={isActive('/')}>HOME</Link>
         <Link to="/menu" className={isActive('/menu')}>MENU</Link>
         <Link to="/reservation" className={isActive('/reservation')}>RESERVE</Link>
-        <Link to="/dashboard" className={isActive('/dashboard')}>DASHBOARD</Link>
+        <Link to="/account" className={isActive('/account')}>PROFILE</Link>
       </nav>
     </header>
   );
