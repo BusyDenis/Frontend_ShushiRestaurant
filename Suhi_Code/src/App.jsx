@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Reservation from "./pages/Reservation";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/menu/:id" element={<Menu />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
