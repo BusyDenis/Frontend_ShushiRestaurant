@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
+import AdminCodeEntry from '../components/AdminCodeEntry';
 import './Admin.css';
 
 const Admin = () => {
@@ -12,10 +13,12 @@ const Admin = () => {
     image: ''
   });
   const [activeSection, setActiveSection] = useState('add');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Load existing menu items (you'll need to implement the actual API call)
   useEffect(() => {
-    // TODO: Fetch menu items from your backend
+    if (!isAuthenticated) return;
+    
     const fetchMenuItems = async () => {
       try {
         // Replace with your actual API endpoint
@@ -28,7 +31,7 @@ const Admin = () => {
     };
 
     fetchMenuItems();
-  }, []);
+  }, [isAuthenticated]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +68,10 @@ const Admin = () => {
       console.error('Error adding menu item:', error);
     }
   };
+
+  if (!isAuthenticated) {
+    return <AdminCodeEntry onCodeCorrect={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div>

@@ -1,0 +1,64 @@
+.admin-code-entry {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.admin-code-entry h2 {
+  margin-bottom: 2rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.code-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.code-input {
+  width: 70px;
+  height: 70px;
+  border: 2px solid #333;
+  border-radius: 12px;
+  font-size: 2rem;
+  text-align: center;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.code-input:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.code-input:invalid {
+  border-color: #ffd700;
+}
+
+/* Add a subtle animation for incorrect code */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.code-input.error {
+  animation: shake 0.3s ease-in-out;
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+} 
