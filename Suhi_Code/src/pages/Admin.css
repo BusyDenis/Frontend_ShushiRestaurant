@@ -96,15 +96,16 @@
 }
 
 .swagger-form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
-  max-width: 800px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
 }
 
 .form-group label {
@@ -116,6 +117,9 @@
 .form-group input,
 .form-group textarea,
 .form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
   padding: 0.75rem;
   border: 1px solid #d4af37;
   border-radius: 4px;
@@ -144,6 +148,7 @@
 }
 
 .price-input {
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -160,6 +165,11 @@
 }
 
 .swagger-button {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
   background-color: #d4af37;
   color: #0a0a0a;
   padding: 0.75rem 1.5rem;
@@ -275,4 +285,82 @@
   margin-bottom: 1rem;
   border-radius: 4px;
   text-align: center;
+}
+
+.admin-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.admin-menu-card {
+  background: #181818;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
+  padding: 0.7rem 1rem 0.7rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  height: 100%;
+}
+
+.admin-menu-card .card-spacer {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.admin-menu-card h3 {
+  color: #d4af37;
+  font-size: 1.1rem;
+  margin: 0 0 0.3rem 0;
+  font-weight: 600;
+}
+
+.admin-menu-card p {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.admin-menu-card .price {
+  color: #d4af37;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-menu-card .category-badge {
+  background: #222;
+  color: #d4af37;
+  border-radius: 12px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.admin-menu-card .action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  width: 100%;
+}
+
+.admin-menu-card .swagger-button {
+  font-size: 0.95rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 4px;
+}
+
+.admin-menu-card img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  object-fit: cover;
+  align-self: center;
 } 
