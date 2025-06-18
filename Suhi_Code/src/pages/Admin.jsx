@@ -68,6 +68,9 @@ const Admin = () => {
     { id: 3, name: 'Charlie', date: '2025-06-18', timeFrom: '20:00', timeTo: '22:00', persons: 3, phone: '+1122334455', status: 'accepted' },
   ]);
   const [loading, setLoading] = useState(true);
+  const [swipingReservation, setSwipingReservation] = useState(null);
+  const [swipeOffset, setSwipeOffset] = useState(0);
+  const [animatingReservations, setAnimatingReservations] = useState(new Set());
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -178,6 +181,41 @@ const Admin = () => {
 
   const handleDeclineReservation = (id) => {
     setReservations(prev => prev.filter(r => r.id !== id));
+  };
+
+  const handleCancelReservation = (id) => {
+    setAnimatingReservations(prev => new Set([...prev, id]));
+    setTimeout(() => {
+      setReservations(prev => prev.filter(r => r.id !== id));
+      setAnimatingReservations(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    }, 300); // Match this with the CSS transition duration
+  };
+
+  const handleSwipeStart = (e, id) => {
+    setSwipingReservation(id);
+    setSwipeOffset(0);
+  };
+
+  const handleSwipeMove = (e) => {
+    if (swipingReservation) {
+      const touch = e.touches[0];
+      const startX = touch.clientX;
+      setSwipeOffset(Math.max(0, startX - touch.clientX));
+    }
+  };
+
+  const handleSwipeEnd = (e) => {
+    if (swipingReservation) {
+      if (swipeOffset > 100) {
+        handleCancelReservation(swipingReservation);
+      }
+      setSwipingReservation(null);
+      setSwipeOffset(0);
+    }
   };
 
   if (!isAuthenticated) {
@@ -411,7 +449,20 @@ const Admin = () => {
                     <div style={{ color: '#aaa' }}>No new reservations.</div>
                   )}
                   {reservations.filter(r => r.status === 'new').map(r => (
-                    <div key={r.id} style={{ background: '#222', borderRadius: 8, padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div 
+                      key={r.id} 
+                      style={{ 
+                        background: '#232323', 
+                        borderRadius: 8, 
+                        padding: '1rem 1.5rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between',
+                        transform: animatingReservations.has(r.id) ? 'translateX(100%)' : 'none',
+                        opacity: animatingReservations.has(r.id) ? 0 : 1,
+                        transition: 'transform 0.3s ease, opacity 0.3s ease'
+                      }}
+                    >
                       <div>
                         <div style={{ color: '#fff', fontWeight: 700, fontSize: '1.15rem', marginBottom: '0.2rem' }}>
                           {r.name}
@@ -429,7 +480,7 @@ const Admin = () => {
                       </div>
                       <div style={{ display: 'flex', gap: '0.7rem' }}>
                         <button className="swagger-button" style={{ width: 38, height: 38, borderRadius: '50%', fontSize: '1.3rem', padding: 0 }} title="Accept" onClick={() => handleAcceptReservation(r.id)}>&#10003;</button>
-                        <button className="swagger-button delete" style={{ width: 38, height: 38, borderRadius: '50%', fontSize: '1.3rem', padding: 0 }} title="Decline" onClick={() => handleDeclineReservation(r.id)}>&#10005;</button>
+                        <button className="swagger-button delete" style={{ width: 38, height: 38, borderRadius: '50%', fontSize: '1.3rem', padding: 0 }} title="Decline" onClick={() => handleCancelReservation(r.id)}>&#10005;</button>
                       </div>
                     </div>
                   ))}
@@ -442,7 +493,29 @@ const Admin = () => {
                     <div style={{ color: '#aaa' }}>No accepted reservations.</div>
                   )}
                   {reservations.filter(r => r.status === 'accepted').map(r => (
-                    <div key={r.id} style={{ background: '#232323', borderRadius: 8, padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div 
+                      key={r.id} 
+                      style={{ 
+                        background: '#232323', 
+                        borderRadius: 8, 
+                        padding: '1rem 1.5rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between',
+                        transform: swipingReservation === r.id 
+                          ? `translateX(${swipeOffset}px)` 
+                          : animatingReservations.has(r.id) 
+                            ? 'translateX(100%)' 
+                            : 'none',
+                        opacity: animatingReservations.has(r.id) ? 0 : 1,
+                        transition: swipingReservation === r.id ? 'none' : 'transform 0.3s ease, opacity 0.3s ease',
+                        position: 'relative',
+                        touchAction: 'pan-y pinch-zoom'
+                      }}
+                      onTouchStart={(e) => handleSwipeStart(e, r.id)}
+                      onTouchMove={handleSwipeMove}
+                      onTouchEnd={handleSwipeEnd}
+                    >
                       <div>
                         <div style={{ color: '#fff', fontWeight: 700, fontSize: '1.15rem', marginBottom: '0.2rem' }}>
                           {r.name}
@@ -458,8 +531,16 @@ const Admin = () => {
                           <span role="img" aria-label="phone">📞</span> {r.phone || '-'}
                         </div>
                       </div>
-                          </div>
-                    ))}
+                      <button 
+                        className="swagger-button delete" 
+                        style={{ width: 38, height: 38, borderRadius: '50%', fontSize: '1.3rem', padding: 0 }} 
+                        title="Cancel" 
+                        onClick={() => handleCancelReservation(r.id)}
+                      >
+                        &#10005;
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
