@@ -4,6 +4,7 @@ import './AdminCodeEntry.css';
 const AdminCodeEntry = ({ onCodeCorrect }) => {
   const [code, setCode] = useState(['', '', '', '']);
   const [error, setError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const inputRefs = useRef([]);
 
   useEffect(() => {
@@ -27,7 +28,11 @@ const AdminCodeEntry = ({ onCodeCorrect }) => {
     if (newCode.every(digit => digit !== '')) {
       const enteredCode = newCode.join('');
       if (enteredCode === '1234') {
-        onCodeCorrect();
+        setIsSuccess(true);
+        // Add a slight delay before calling onCodeCorrect to show the success animation
+        setTimeout(() => {
+          onCodeCorrect();
+        }, 1000);
       } else {
         // Show error animation
         setError(true);
@@ -47,7 +52,7 @@ const AdminCodeEntry = ({ onCodeCorrect }) => {
   };
 
   return (
-    <div className="admin-code-entry">
+    <div className={`admin-code-entry ${isSuccess ? 'success' : ''}`}>
       <h2>Enter Admin Code</h2>
       <div className="code-inputs">
         {code.map((digit, index) => (
@@ -59,12 +64,18 @@ const AdminCodeEntry = ({ onCodeCorrect }) => {
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
-            className={`code-input ${error ? 'error' : ''}`}
+            className={`code-input ${error ? 'error' : ''} ${isSuccess ? 'success' : ''}`}
             inputMode="numeric"
             pattern="[0-9]*"
           />
         ))}
       </div>
+      {isSuccess && (
+        <div className="success-animation">
+          <div className="checkmark">✓</div>
+          <div className="success-text">Access Granted</div>
+        </div>
+      )}
     </div>
   );
 };

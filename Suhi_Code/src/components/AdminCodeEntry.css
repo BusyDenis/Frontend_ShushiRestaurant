@@ -11,6 +11,11 @@
   background-color: #1a1a1a;
   color: #ffffff;
   overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.admin-code-entry.success {
+  background-color: #0a0a0a;
 }
 
 .admin-code-entry h2 {
@@ -20,12 +25,24 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
+  transition: all 0.5s ease;
+}
+
+.admin-code-entry.success h2 {
+  transform: translateY(-20px);
+  opacity: 0;
 }
 
 .code-inputs {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  transition: all 0.5s ease;
+}
+
+.admin-code-entry.success .code-inputs {
+  transform: translateY(-20px);
+  opacity: 0;
 }
 
 .code-input {
@@ -50,6 +67,14 @@
   border-color: #ffd700;
 }
 
+.code-input.success {
+  border-color: #4CAF50;
+  background-color: #1B5E20;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+
 /* Add a subtle animation for incorrect code */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -61,4 +86,72 @@
   animation: shake 0.3s ease-in-out;
   border-color: #ffd700;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Success animation styles */
+.success-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+.checkmark {
+  font-size: 4rem;
+  color: #4CAF50;
+  animation: checkmarkAnimation 0.5s ease forwards;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.success-text {
+  font-size: 1.5rem;
+  color: #4CAF50;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 0.3s forwards;
+}
+
+@keyframes checkmarkAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 } 
