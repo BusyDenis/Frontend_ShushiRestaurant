@@ -77,7 +77,7 @@ const Admin = () => {
         const response = await fetch(`${API_BASE_URL}/menu`);
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0) {
-          setMenuItems(data);
+        setMenuItems(data);
         } else {
           setMenuItems(fallbackMenuItems);
         }
@@ -236,83 +236,83 @@ const Admin = () => {
                   {showAddForm ? '×' : '+'}
                 </button>
               </div>
-
+              
               {loading ? (
                 <div style={{ textAlign: 'center', color: '#d4af37', fontSize: '1.2rem', margin: '2rem 0' }}>Loading menu items...</div>
               ) : (
                 <>
                   {showAddForm && (
                     <form onSubmit={handleSubmit} className="swagger-form" style={{ marginBottom: '2rem' }}>
-                      <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={newItem.name}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter item name"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                          id="description"
-                          name="description"
-                          value={newItem.description}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter item description"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="price">Price</label>
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={newItem.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter item name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={newItem.description}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter item description"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="price">Price</label>
                         <div className="price-input" style={{ width: '100%' }}>
-                          <span className="currency">$</span>
-                          <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            value={newItem.price}
-                            onChange={handleInputChange}
-                            step="0.01"
-                            required
-                            placeholder="0.00"
+                    <span className="currency">$</span>
+                    <input
+                      type="number"
+                      id="price"
+                      name="price"
+                      value={newItem.price}
+                      onChange={handleInputChange}
+                      step="0.01"
+                      required
+                      placeholder="0.00"
                             style={{ width: '100%' }}
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="category">Category</label>
-                        <select
-                          id="category"
-                          name="category"
-                          value={newItem.category}
-                          onChange={handleInputChange}
-                          required
-                        >
-                          <option value="">Select a category</option>
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="category">Category</label>
+                  <select
+                    id="category"
+                    name="category"
+                    value={newItem.category}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select a category</option>
                           <option value="special">Special</option>
                           <option value="nigiri">Nigiri</option>
                           <option value="rolls">Rolls</option>
                           <option value="vegan">Vegan</option>
-                        </select>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="image">Image URL</label>
-                        <input
-                          type="url"
-                          id="image"
-                          name="image"
-                          value={newItem.image}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="https://example.com/image.jpg"
-                        />
-                      </div>
-                      <button type="submit" className="swagger-button">Add Item</button>
-                    </form>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="image">Image URL</label>
+                  <input
+                    type="url"
+                    id="image"
+                    name="image"
+                    value={newItem.image}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <button type="submit" className="swagger-button">Add Item</button>
+              </form>
                   )}
 
                   <div className="admin-menu-grid">
@@ -458,8 +458,8 @@ const Admin = () => {
                           <span role="img" aria-label="phone">📞</span> {r.phone || '-'}
                         </div>
                       </div>
-                    </div>
-                  ))}
+                          </div>
+                    ))}
                 </div>
               </div>
             </div>

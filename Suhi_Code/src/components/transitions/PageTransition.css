@@ -3,6 +3,18 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
+  transition: transform 0.18s cubic-bezier(0.4,0,0.2,1), box-shadow 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+
+.transition-button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 24px #d4af3740, 0 1.5px 8px #0004;
+  z-index: 1;
+}
+
+.transition-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px #d4af3720, 0 1.5px 8px #0002;
 }
 
 .transition-circle {
