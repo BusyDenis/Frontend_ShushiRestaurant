@@ -111,6 +111,7 @@ const Admin = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="Enter item name"
+                    style={{ width: '100%' }}
                   />
                 </div>
 
@@ -123,12 +124,13 @@ const Admin = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="Enter item description"
+                    style={{ width: '100%' }}
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="price">Price</label>
-                  <div className="price-input">
+                  <div className="price-input" style={{ width: '100%' }}>
                     <span className="currency">$</span>
                     <input
                       type="number"
@@ -139,6 +141,7 @@ const Admin = () => {
                       step="0.01"
                       required
                       placeholder="0.00"
+                      style={{ width: '100%' }}
                     />
                   </div>
                 </div>
@@ -151,12 +154,13 @@ const Admin = () => {
                     value={newItem.category}
                     onChange={handleInputChange}
                     required
+                    style={{ width: '100%' }}
                   >
                     <option value="">Select a category</option>
-                    <option value="appetizers">Appetizers</option>
-                    <option value="main-courses">Main Courses</option>
-                    <option value="desserts">Desserts</option>
-                    <option value="drinks">Drinks</option>
+                    <option value="special">Special</option>
+                    <option value="nigiri">Nigiri</option>
+                    <option value="rolls">Rolls</option>
+                    <option value="vegan">Vegan</option>
                   </select>
                 </div>
 
@@ -170,10 +174,11 @@ const Admin = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="https://example.com/image.jpg"
+                    style={{ width: '100%' }}
                   />
                 </div>
 
-                <button type="submit" className="swagger-button">Add Item</button>
+                <button type="submit" className="swagger-button" style={{ width: '100%' }}>Add Item</button>
               </form>
             </div>
           )}
