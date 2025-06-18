@@ -12,6 +12,7 @@ const Home = () => {
   const [hoveredImg, setHoveredImg] = useState(null); // null, 'img1', or 'img2'
   const [descVisible, setDescVisible] = useState(true);
   const [displayedImg, setDisplayedImg] = useState(null); // for cross-fade
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -20,8 +21,16 @@ const Home = () => {
       setMousePosition({ x, y });
     };
 
+    const handleScroll = () => {
+      setScrollY(window.scrollY || window.pageYOffset);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   // Custom smooth scroll function
@@ -69,11 +78,25 @@ const Home = () => {
     }
   }, [hoveredImg, displayedImg]);
 
+  // Calculate train effect for hero
+  const maxScroll = 220; // px after which effect is maxed
+  const progress = Math.min(scrollY / maxScroll, 1);
+  const titleStyle = {
+    transform: `translateX(${-progress * 80}px)` ,
+    opacity: 1 - progress,
+    transition: 'transform 0.2s, opacity 0.2s',
+  };
+  const imgStyle = {
+    transform: `translate(${mousePosition.x + progress * 80}px, ${mousePosition.y}px)` ,
+    opacity: 1 - progress,
+    transition: 'transform 0.2s, opacity 0.2s',
+  };
+
   return (
     <div className="main-bg">
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">OMAKASE<br />EXPERIENCES</h1>
+          <h1 className="hero-title" style={titleStyle}>OMAKASE<br />EXPERIENCES</h1>
           <div className="hero-buttons">
             <PageTransition to="/menu">
               <button className="btn">VIEW MENU</button>
@@ -87,10 +110,7 @@ const Home = () => {
           <img 
             src={startPageImg} 
             alt="Sushi Hero" 
-            style={{
-              transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-              transition: 'transform 0.3s ease-out'
-            }}
+            style={imgStyle}
           />
         </div>
         <div className="scroll-cue" onClick={() => {
