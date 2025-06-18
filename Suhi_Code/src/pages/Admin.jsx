@@ -3,6 +3,8 @@ import Header from '../components/layout/Header';
 import AdminCodeEntry from '../components/AdminCodeEntry';
 import './Admin.css';
 
+const API_BASE_URL = 'http://localhost:8080/api';
+
 const Admin = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [newItem, setNewItem] = useState({
@@ -14,19 +16,19 @@ const Admin = () => {
   });
   const [activeSection, setActiveSection] = useState('add');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Load existing menu items (you'll need to implement the actual API call)
   useEffect(() => {
     if (!isAuthenticated) return;
     
     const fetchMenuItems = async () => {
       try {
-        // Replace with your actual API endpoint
-        const response = await fetch('/api/menu-items');
+        const response = await fetch(`${API_BASE_URL}/menu`);
         const data = await response.json();
         setMenuItems(data);
       } catch (error) {
         console.error('Error fetching menu items:', error);
+        setError('Failed to load menu items. Please try again later.');
       }
     };
 
@@ -44,8 +46,7 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Replace with your actual API endpoint
-      const response = await fetch('/api/menu-items', {
+      const response = await fetch(`${API_BASE_URL}/menu`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,9 +64,24 @@ const Admin = () => {
           category: '',
           image: ''
         });
+        setError(null);
       }
     } catch (error) {
       console.error('Error adding menu item:', error);
+      setError('Failed to add menu item. Please try again.');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`${API_BASE_URL}/menu/${id}`, {
+        method: 'DELETE',
+      });
+      setMenuItems(prev => prev.filter(item => item.id !== id));
+      setError(null);
+    } catch (error) {
+      console.error('Error deleting menu item:', error);
+      setError('Failed to delete menu item. Please try again.');
     }
   };
 
@@ -100,6 +116,12 @@ const Admin = () => {
         </aside>
 
         <main className="swagger-content">
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+
           {activeSection === 'add' && (
             <div className="content-section">
               <div className="section-header">
@@ -220,7 +242,12 @@ const Admin = () => {
                         <td>
                           <div className="action-buttons">
                             <button className="swagger-button edit">Edit</button>
-                            <button className="swagger-button delete">Delete</button>
+                            <button 
+                              className="swagger-button delete"
+                              onClick={() => handleDelete(item.id)}
+                            >
+                              Delete
+                            </button>
                           </div>
                         </td>
                       </tr>
