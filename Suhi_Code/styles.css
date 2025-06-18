@@ -108,6 +108,12 @@ body, html {
   box-shadow: none;
   object-fit: cover;
   will-change: transform;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .scroll-cue {
   position: absolute;
@@ -199,6 +205,12 @@ body, html {
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s, border 0.3s;
   max-height: 300px;
   object-fit: cover;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .gallery-img img:hover {
   transform: scale(1.04);
@@ -283,6 +295,12 @@ body, html {
   height: auto;
   display: block;
   transition: transform 0.3s ease;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .premium-box-image:hover img {
@@ -350,6 +368,12 @@ body, html {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .menu-item:hover .menu-item-image img {
@@ -545,6 +569,12 @@ body, html {
   object-fit: cover;
   will-change: transform;
   border: 3px solid transparent;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .welcome-section .gallery-img img:hover {
   transform: scale(1.04);
