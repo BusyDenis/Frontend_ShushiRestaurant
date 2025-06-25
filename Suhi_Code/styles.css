@@ -336,6 +336,7 @@ body, html {
   padding: 0 2em;
   max-width: 1400px;
   margin: 0 auto;
+  transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1);
 }
 
 .menu-item {
@@ -581,4 +582,17 @@ body, html {
   border: 3px solid #d4af37;
   box-shadow: 0 4px 32px #d4af3722;
   z-index: 1;
+}
+
+.fade-menu {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-fade {
+  transition: opacity 0.09s cubic-bezier(0.4,0,0.2,1);
+  opacity: 1;
+}
+.page-fade.fade-out {
+  opacity: 0;
 }

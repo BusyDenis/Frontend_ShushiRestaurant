@@ -7,6 +7,9 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `${API_BASE_URL}/menu/${id}`,
     DELETE: (id) => `${API_BASE_URL}/menu/${id}`,
   },
+  RESERVATION: {
+    CREATE: `${API_BASE_URL}/reservation`,
+  },
 };
 
 export const fetchWithAuth = async (url, options = {}) => {

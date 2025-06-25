@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import img1 from '../../img_1.png';
 import img2 from '../../img_2.png';
 import img3 from '../../img_3.png';
 import img4 from '../../img_4.png';
+import { API_ENDPOINTS, fetchWithAuth } from '../config/api';
 
-const menuItems = [
+const fallbackMenuItems = [
   {
     id: 1,
     name: 'Sushi Premium Box',
@@ -42,10 +43,42 @@ const menuItems = [
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [fade, setFade] = useState(false);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const filteredItems = activeCategory === 'all' 
-    ? menuItems 
+  useEffect(() => {
+    const fetchMenu = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchWithAuth(API_ENDPOINTS.MENU.GET_ALL);
+        if (Array.isArray(data) && data.length > 0) {
+          setMenuItems(data);
+        } else {
+          setMenuItems(fallbackMenuItems);
+        }
+      } catch (err) {
+        setMenuItems(fallbackMenuItems);
+        setError('Failed to load menu. Showing fallback menu.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMenu();
+  }, []);
+
+  const handleCategoryChange = (category) => {
+    setFade(true);
+    setTimeout(() => {
+      setActiveCategory(category);
+      setFade(false);
+    }, 250);
+  };
+
+  const filteredItems = activeCategory === 'all'
+    ? menuItems
     : menuItems.filter(item => item.category === activeCategory);
 
   return (
@@ -66,48 +99,53 @@ const Menu = () => {
 
       <section className="menu-categories">
         <div className="category-buttons">
-          <button 
-            className={activeCategory === 'all' ? 'active' : ''} 
-            onClick={() => setActiveCategory('all')}
+          <button
+            className={activeCategory === 'all' ? 'active' : ''}
+            onClick={() => handleCategoryChange('all')}
           >
             All
           </button>
-          <button 
-            className={activeCategory === 'nigiri' ? 'active' : ''} 
-            onClick={() => setActiveCategory('nigiri')}
+          <button
+            className={activeCategory === 'nigiri' ? 'active' : ''}
+            onClick={() => handleCategoryChange('nigiri')}
           >
             Nigiri
           </button>
-          <button 
-            className={activeCategory === 'rolls' ? 'active' : ''} 
-            onClick={() => setActiveCategory('rolls')}
+          <button
+            className={activeCategory === 'rolls' ? 'active' : ''}
+            onClick={() => handleCategoryChange('rolls')}
           >
             Rolls
           </button>
-          <button 
-            className={activeCategory === 'vegan' ? 'active' : ''} 
-            onClick={() => setActiveCategory('vegan')}
+          <button
+            className={activeCategory === 'vegan' ? 'active' : ''}
+            onClick={() => handleCategoryChange('vegan')}
           >
             Vegan
           </button>
         </div>
 
-        <div className="menu-grid">
-          {filteredItems.map(item => (
-            <div 
-              key={item.id} 
-              className="menu-item"
-              onClick={() => navigate(`/menu/${item.id}`)}
-            >
-              <div className="menu-item-image">
-                <img src={item.image} alt={item.name} />
+        {loading ? (
+          <div style={{ textAlign: 'center', color: '#d4af37', fontSize: '1.2rem', margin: '2rem 0' }}>Loading menu...</div>
+        ) : (
+          <div className={`menu-grid${fade ? ' fade-menu' : ''}`}>
+            {filteredItems.map(item => (
+              <div
+                key={item.id}
+                className="menu-item"
+                onClick={() => navigate(`/menu/${item.id}`)}
+              >
+                <div className="menu-item-image">
+                  <img src={item.image} alt={item.name} />
+                </div>
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+                <span className="price">${item.price}</span>
               </div>
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-              <span className="price">${item.price}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+        {error && <div style={{ color: '#ff4d4d', marginTop: '1em', textAlign: 'center' }}>{error}</div>}
       </section>
     </div>
   );

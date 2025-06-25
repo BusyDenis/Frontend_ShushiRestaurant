@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_ENDPOINTS, fetchWithAuth } from '../config/api';
 
 const Reservation = () => {
   const [formData, setFormData] = useState({
@@ -9,11 +10,33 @@ const Reservation = () => {
     phone: ''
   });
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend -> important for Lisa and Azar
-    console.log('Reservation submitted:', formData);
-    alert('Reservation successfully submitted!');
+    setLoading(true);
+    setError('');
+    setSuccess(false);
+    try {
+      await fetchWithAuth(API_ENDPOINTS.RESERVATION.CREATE, {
+        method: 'POST',
+        body: JSON.stringify(formData),
+      });
+      setSuccess(true);
+      setFormData({
+        date: '',
+        timeFrom: '',
+        timeTo: '',
+        persons: '2',
+        phone: ''
+      });
+    } catch (err) {
+      setError('Reservation failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -92,7 +115,9 @@ const Reservation = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-gold">Reserve</button>
+        <button type="submit" className="btn btn-gold" disabled={loading}>{loading ? 'Submitting...' : 'Reserve'}</button>
+        {success && <div style={{ color: '#4caf50', marginTop: '1em', textAlign: 'center' }}>Reservation successfully submitted!</div>}
+        {error && <div style={{ color: '#ff4d4d', marginTop: '1em', textAlign: 'center' }}>{error}</div>}
       </form>
     </div>
   );

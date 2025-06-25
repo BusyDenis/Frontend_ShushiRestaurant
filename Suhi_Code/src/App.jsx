@@ -12,15 +12,17 @@ export default function App() {
   return (
     <div className="main-bg">
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/menu/:id" element={<Menu />} />
-        <Route path="/reservation" element={<Reservation />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="page-fade">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/menu/:id" element={<Menu />} />
+          <Route path="/reservation" element={<Reservation />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </div>
   );
 }
