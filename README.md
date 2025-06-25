@@ -8,7 +8,7 @@ Das Sushi Restaurant Frontend ist eine moderne React-basierte Webanwendung für 
 **Technologie:** React 19, Vite, Framer Motion  
 **Sprache:** Deutsch/Englisch  
 **Status:** In Entwicklung  
-**Projektbeginn:** Dezember 2024
+**Projektbeginn:** Juni 2025
 
 ## Entwicklungsprozess und Vorgehensweise
 
