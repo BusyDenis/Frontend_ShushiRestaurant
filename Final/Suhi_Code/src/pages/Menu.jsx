@@ -1,45 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../../img_1.png';
-import img2 from '../../img_2.png';
-import img3 from '../../img_3.png';
-import img4 from '../../img_4.png';
 import { API_ENDPOINTS, fetchWithAuth } from '../config/api';
-
-const fallbackMenuItems = [
-  {
-    id: 1,
-    name: 'Sushi Premium Box',
-    category: 'special',
-    price: '49.90',
-    description: 'Our exclusive selection of the finest sushi creations',
-    image: img1
-  },
-  {
-    id: 2,
-    name: 'Salmon Nigiri',
-    category: 'nigiri',
-    price: '6.90',
-    description: 'Fresh salmon on rice',
-    image: img2
-  },
-  {
-    id: 3,
-    name: 'Tuna Roll',
-    category: 'rolls',
-    price: '14.90',
-    description: 'Fresh tuna with avocado and cucumber',
-    image: img3
-  },
-  {
-    id: 4,
-    name: 'Vegetable Roll',
-    category: 'vegan',
-    price: '10.90',
-    description: 'Assorted fresh vegetables wrapped in rice and seaweed',
-    image: img4
-  }
-];
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -57,11 +18,11 @@ const Menu = () => {
         if (Array.isArray(data) && data.length > 0) {
           setMenuItems(data);
         } else {
-          setMenuItems(fallbackMenuItems);
+          setMenuItems([]);
         }
       } catch (err) {
-        setMenuItems(fallbackMenuItems);
-        setError('Failed to load menu. Showing fallback menu.');
+        setMenuItems([]);
+        setError('Failed to load menu. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -127,16 +88,18 @@ const Menu = () => {
 
         {loading ? (
           <div style={{ textAlign: 'center', color: '#d4af37', fontSize: '1.2rem', margin: '2rem 0' }}>Loading menu...</div>
+        ) : filteredItems.length === 0 ? (
+          <div style={{ textAlign: 'center', color: '#ff4d4d', fontSize: '1.2rem', margin: '2rem 0' }}>No menu items available.</div>
         ) : (
           <div className={`menu-grid${fade ? ' fade-menu' : ''}`}>
             {filteredItems.map(item => (
               <div
-                key={item.id}
+                key={item.dishId || item.id}
                 className="menu-item"
-                onClick={() => navigate(`/menu/${item.id}`)}
+                onClick={() => navigate(`/menu/${item.dishId || item.id}`)}
               >
                 <div className="menu-item-image">
-                  <img src={item.image} alt={item.name} />
+                  <img src={item.imgURL} alt={item.name} />
                 </div>
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>

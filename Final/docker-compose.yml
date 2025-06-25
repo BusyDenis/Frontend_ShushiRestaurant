@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Spring Boot Backend
+  backend:
+    build:
+      context: ./2025-rest-foods-backend--8-/sushi_backend
+      dockerfile: Dockerfile
+    container_name: sushi_backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - sushi_network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./Suhi_Code
+      dockerfile: Dockerfile
+    container_name: sushi_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - sushi_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  sushi_network:
+    driver: bridge 
